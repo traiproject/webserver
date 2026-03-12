@@ -1,0 +1,50 @@
+package components
+
+import "github.com/traiproject/wserver/internal/app/i18n"
+
+templ LanguageSwitcher(action string, redirectTo string) {
+	<div x-data="{ langMenuOpen: false }" class="relative inline-block text-left">
+		<button
+			type="button"
+			@click="langMenuOpen = !langMenuOpen"
+			@click.outside="langMenuOpen = false"
+			class="inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 focus:outline-hidden"
+			aria-expanded="true"
+			aria-haspopup="true"
+		>
+			<span class="uppercase">{ i18n.BaseCode(i18n.CurrentTag(ctx)) }</span>
+			<svg class="-mr-1 size-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+				<path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+			</svg>
+		</button>
+		<div
+			x-cloak
+			x-show="langMenuOpen"
+			x-transition:enter="transition ease-out duration-100"
+			x-transition:enter-start="transform opacity-0 scale-95"
+			x-transition:enter-end="transform opacity-100 scale-100"
+			x-transition:leave="transition ease-in duration-75"
+			x-transition:leave-start="transform opacity-100 scale-100"
+			x-transition:leave-end="transform opacity-0 scale-95"
+			class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-1 shadow-lg outline outline-black/5 dark:bg-gray-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
+		>
+			<form method="post" action={ templ.URL(action) }>
+				<input type="hidden" name="redirect_to" value={ redirectTo }/>
+				for _, opt := range i18n.SupportedOptions(ctx) {
+					<button
+						type="submit"
+						name="lang"
+						value={ opt.Code }
+						class={
+							"block w-full text-left px-4 py-2 text-sm focus:outline-hidden",
+							templ.KV("bg-gray-100 text-gray-900 dark:bg-white/10 dark:text-white", i18n.BaseCode(i18n.CurrentTag(ctx)) == opt.Code),
+							templ.KV("text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5", i18n.BaseCode(i18n.CurrentTag(ctx)) != opt.Code),
+						}
+					>
+						{ i18n.T(ctx, opt.LabelKey) }
+					</button>
+				}
+			</form>
+		</div>
+	</div>
+}

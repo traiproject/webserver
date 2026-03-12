@@ -1,0 +1,20 @@
+{
+  "name": "wserver",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build:js": "bun build ./frontend/js/app.js --outdir ./web/static/js --target browser --minify",
+    "watch:js": "bun build ./frontend/js/app.js --outdir ./web/static/js --target browser --minify --watch",
+    "build:css": "bunx @tailwindcss/cli -i ./frontend/css/app.css -o ./web/static/css/app.css --minify",
+    "watch:css": "bunx @tailwindcss/cli -i ./frontend/css/app.css -o ./web/static/css/app.css --watch"
+  },
+  "dependencies": {
+    "@imacrayon/alpine-ajax": "^0.12.6",
+    "alpinejs": "^3.15.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  }
+}

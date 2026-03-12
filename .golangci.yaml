@@ -1,0 +1,85 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  default: none
+
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - dupl
+    - goconst
+    - mnd
+    - lll
+    - revive
+    - gocritic
+    - prealloc
+    - testifylint
+    - gosec
+    - cyclop
+    - misspell
+    - nilerr
+    - godot
+    - testpackage
+    - thelper
+    - tparallel
+    - sloglint
+
+  settings:
+    sloglint:
+      attr-only: true
+      no-raw-keys: false
+
+    govet:
+      enable:
+        - shadow
+
+    gocritic:
+      enabled-tags:
+        - performance
+        - style
+        - diagnostic
+
+    cyclop:
+      max-complexity: 10
+
+    misspell:
+      locale: US
+
+    gosec:
+      severity: medium
+      confidence: medium
+
+    godot:
+      scope: toplevel
+      exclude:
+        - "^(?i)todo:"
+        - "^(?i)fixme:"
+      period: true
+
+    testifylint:
+      enable-all: true
+
+    mnd:
+      ignored-numbers:
+        - "0"
+        - "1"
+        - "2"
+
+formatters:
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - prefix(github.com/traiproject/wserver)
+
+  enable:
+    - gofumpt
+    - gci

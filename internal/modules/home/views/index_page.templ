@@ -1,0 +1,19 @@
+package views
+
+import "github.com/traiproject/wserver/internal/ui/layout"
+import "github.com/traiproject/wserver/internal/app/i18n"
+
+templ IndexPage(
+	title string,
+	description string,
+	navItems []layout.NavItem,
+	user layout.UserSummary,
+) {
+	@layout.AppShell(title, description, navItems, user) {
+		<div class="px-4 py-6 sm:px-0">
+			<p class="text-lg text-gray-700 dark:text-gray-300">
+				{ i18n.T(ctx, i18n.HomeWelcome) }
+			</p>
+		</div>
+	}
+}
