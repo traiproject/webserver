@@ -35,10 +35,11 @@ func main() {
 		logger.Warn(msg)
 	}
 
-	app, appErr := boot.New(logger, cfg)
+	app, cleanup, appErr := boot.New(context.Background(), logger, cfg)
 	if appErr != nil {
 		panic(appErr)
 	}
+	defer cleanup()
 
 	src := &http.Server{
 		Addr:              fmt.Sprintf(":%d", cfg.PORT),

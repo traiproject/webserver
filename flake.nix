@@ -29,6 +29,8 @@
             gci
             air
             templ
+            sqlc
+            goose
 
             bun
 

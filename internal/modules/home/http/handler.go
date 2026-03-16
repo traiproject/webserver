@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	"example.com/webserver/internal/app/db/store"
 	"example.com/webserver/internal/app/http/respond"
 	"example.com/webserver/internal/app/i18n"
 	"example.com/webserver/internal/modules/home/views"
@@ -14,12 +15,14 @@ import (
 // HomeHandler handles home page requests.
 type HomeHandler struct {
 	logger *slog.Logger
+	store  *store.Queries
 }
 
 // New creates a new HomeHandler.
-func New(logger *slog.Logger) *HomeHandler {
+func New(logger *slog.Logger, storeQueries *store.Queries) *HomeHandler {
 	return &HomeHandler{
 		logger: logger,
+		store:  storeQueries,
 	}
 }
 
@@ -39,5 +42,15 @@ func (h *HomeHandler) Index(w http.ResponseWriter, r *http.Request) {
 		Email: "test@example.com",
 	}
 
-	respond.View(w, r, views.IndexPage(title, description, navItems, user))
+	users, err := h.store.ListUsers(ctx)
+	if err != nil {
+		http.Error(w, "could not fetch users", http.StatusInternalServerError)
+		return
+	}
+
+	vm := views.IndexVM{
+		Users: users,
+	}
+
+	respond.View(w, r, views.IndexPage(title, description, navItems, user, vm))
 }

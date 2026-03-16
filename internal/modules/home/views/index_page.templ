@@ -8,12 +8,20 @@ templ IndexPage(
 	description string,
 	navItems []layout.NavItem,
 	user layout.UserSummary,
+	vm IndexVM,
 ) {
 	@layout.AppShell(title, description, navItems, user) {
 		<div class="px-4 py-6 sm:px-0">
 			<p class="text-lg text-gray-700 dark:text-gray-300">
 				{ i18n.T(ctx, i18n.HomeWelcome) }
 			</p>
+			<br/>
+			<h2>Users:</h2>
+			<ul>
+				for _, user := range vm.Users {
+					<li>{user.Name}</li>
+				}
+			</ul>
 		</div>
 	}
 }

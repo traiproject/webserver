@@ -16,6 +16,11 @@ func View(w http.ResponseWriter, r *http.Request, component templ.Component) {
 	if err := component.Render(r.Context(), w); err != nil {
 		// Just log it. The only way it fails here is a network disconnect
 		// or a catastrophic templ bug, in which case we can't fix the HTTP response anyway.
-		slog.ErrorContext(r.Context(), "failed to write templ component to response", slog.Any("error", err), slog.String("path", r.URL.Path))
+		slog.ErrorContext(
+			r.Context(),
+			"failed to write templ component to response",
+			slog.Any("error", err),
+			slog.String("path", r.URL.Path),
+		)
 	}
 }
