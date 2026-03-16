@@ -5,6 +5,10 @@
 ### dotenv ###
 .env
 
+### Generated frontend assets ###
+/web/static/css/app.css
+/web/static/js/app.js
+
 ### Go ###
 # Binaries for programs and plugins
 *.exe
@@ -27,6 +31,9 @@ go.work
 
 # Air
 tmp
+
+# Generated Templ files
+*_templ.go
 
 ### JetBrains+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider

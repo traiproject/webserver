@@ -36,4 +36,4 @@ clean:
 	rm -rf ./tmp
 	rm -rf ./web/static/js/*
 	rm -rf ./web/static/css/*
-	fd "_templ.go" -X rm
+	fd -I -t f -g "*_templ.go" -X rm
