@@ -3,22 +3,13 @@ set shell := ["bash", "-c"]
 default:
 	@just --list
 
-[parallel]
-dev: dev-templ dev-js dev-css dev-go
-
-dev-templ:
-	templ generate -watch
-
-dev-js:
-	bun run watch:js
-
-dev-css:
-	bun run watch:css 
-
-dev-go:
+dev:
 	air
 
-build: build-templ build-js build-css build-go
+[parallel]
+build-prepare: build-templ build-js build-css
+
+build: build-prepare build-go
 
 build-templ:
 	templ generate
