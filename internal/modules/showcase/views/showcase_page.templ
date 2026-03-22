@@ -1,0 +1,28 @@
+package views
+
+import "example.com/webserver/internal/ui/layout"
+import "example.com/webserver/internal/infrastructure/i18n"
+import "example.com/webserver/internal/modules/showcase/core/domain"
+
+templ ShowcasePage(
+	title string,
+	description string,
+	navItems []layout.NavItem,
+	user layout.UserSummary,
+	items []domain.ShowcaseItem,
+) {
+	@layout.AppShell(title, description, navItems, user) {
+		<div class="px-4 py-6 sm:px-0">
+			<p class="text-lg text-gray-700 dark:text-gray-300">
+				{ i18n.T(ctx, i18n.ShowcaseWelcome) }
+			</p>
+			<br/>
+			<h2>Items:</h2>
+			<ul>
+				for _, user := range items {
+					<li>{ user.Title }</li>
+				}
+			</ul>
+		</div>
+	}
+}

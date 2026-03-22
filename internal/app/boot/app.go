@@ -7,10 +7,10 @@ import (
 	"net/http"
 
 	"example.com/webserver/internal/app/config"
-	"example.com/webserver/internal/app/db"
-	"example.com/webserver/internal/app/db/store"
-	"example.com/webserver/internal/app/http/router"
-	"example.com/webserver/internal/app/i18n"
+	"example.com/webserver/internal/infrastructure/db"
+	"example.com/webserver/internal/infrastructure/db/store"
+	"example.com/webserver/internal/infrastructure/http/router"
+	"example.com/webserver/internal/infrastructure/i18n"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
